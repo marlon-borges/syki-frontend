@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 import './styles/global.css';
 import { AcademicRoutes } from '@/routes/AcademicRoutes';
 import { TeacherRoutes } from '@/routes/TeacherRoutes';
@@ -23,14 +23,18 @@ if (rootEl) {
                <Route path="/reset-password" element={<ResetPasswordPage />} />
                /* Protected */
                <Route path="/academic" element={<ProtectedLayout />}>
+                  <Route index element={<Navigate to="campi" replace />} />
                   {AcademicRoutes()}
                </Route>
                <Route path="/teacher" element={<ProtectedLayout />}>
+                  <Route index element={<Navigate to="home" replace />} />
                   {TeacherRoutes()}
                </Route>
                <Route path="/student" element={<ProtectedLayout />}>
+                  <Route index element={<Navigate to="home" replace />} />
                   {StudentRoutes()}
                </Route>
+               <Route path="*" element={<h1>Não autorizado</h1>} />
             </Routes>
          </BrowserRouter>
       </React.StrictMode>,
