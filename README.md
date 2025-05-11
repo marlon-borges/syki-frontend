@@ -1,4 +1,5 @@
 # Syki Frontend project
+Criação de um frontend utilizando React, para o repositório [Syki de Zaqueu Cavalcante](https://github.com/ZaqueuCavalcante/syki).
 
 ## Setup
 
