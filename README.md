@@ -3,15 +3,15 @@ Criação de um frontend utilizando React, para o repositório [Syki de Zaqueu C
 
 ## Setup
 
-Install the dependencies:
+Instale as dependências, utilizando npm:
 
 ```bash
 npm install
 ```
 
-## Get started
+## Iniciar
 
-Start the dev server:
+Inicie o servidor em dev:
 
 ```bash
 npm dev
