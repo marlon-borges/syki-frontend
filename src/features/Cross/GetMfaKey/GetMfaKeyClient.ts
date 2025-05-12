@@ -1,5 +1,5 @@
+import { api } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 export interface GetMfaKeyProps {
    token: string;
@@ -7,12 +7,10 @@ export interface GetMfaKeyProps {
 
 async function GetMfaKeyClient({ token }: GetMfaKeyProps) {
    try {
-      const response = await axios({
-         method: "GET",
+      const response = await api.get("/mfa/key", {
          headers: {
             Authorization: `Bearer ${token}`,
          },
-         url: `${process.env.REACT_APP_API_URL}/mfa/key`,
       });
       return response.data;
    } catch (err: any) {

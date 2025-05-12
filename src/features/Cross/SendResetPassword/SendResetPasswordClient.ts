@@ -1,5 +1,5 @@
+import { api } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 export interface SendResetPasswordProps {
    email: string;
@@ -7,12 +7,8 @@ export interface SendResetPasswordProps {
 
 async function SendResetPasswordClient({ email }: SendResetPasswordProps) {
    try {
-      const response = await axios({
-         method: "POST",
-         url: `${process.env.REACT_APP_API_URL}/reset-password-token`,
-         data: {
-            email,
-         },
+      const response = await api.post("/reset-password-token", {
+         email,
       });
       return response.data;
    } catch (err: any) {

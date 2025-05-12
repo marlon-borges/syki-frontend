@@ -1,5 +1,5 @@
+import { api } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 export interface FinishRegisterProps {
    token: string;
@@ -8,14 +8,9 @@ export interface FinishRegisterProps {
 
 async function FinishRegisterClient({ token, password }: FinishRegisterProps) {
    try {
-      const response = await axios({
-         method: "PUT",
-         headers: { "Content-Type": "application/json" },
-         url: `${process.env.REACT_APP_API_URL}/users`,
-         data: {
-            token,
-            password,
-         },
+      const response = await api.put("/users", {
+         token,
+         password,
       });
       return response.data;
    } catch (err: any) {

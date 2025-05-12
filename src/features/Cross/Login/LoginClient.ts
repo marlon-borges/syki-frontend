@@ -1,5 +1,5 @@
+import { api } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 interface LoginProps {
    email: string;
@@ -12,10 +12,9 @@ interface LoginResponse {
 
 async function LoginClient({ email, password }: LoginProps) {
    try {
-      const response = await axios({
-         method: "POST",
-         url: `${process.env.REACT_APP_API_URL}/login`,
-         data: { email, password },
+      const response = await api.post("/login", {
+         email,
+         password,
       });
       return response.data;
    } catch (err: any) {

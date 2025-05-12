@@ -1,5 +1,5 @@
+import { api } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 export interface SetupMfaProps {
    token: string;
@@ -7,13 +7,10 @@ export interface SetupMfaProps {
 
 async function SetupMfaClient({ token }: SetupMfaProps) {
    try {
-      const response = await axios({
-         method: "POST",
+      const response = await api.post("/mfa/setup", null, {
          headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
          },
-         url: `${process.env.REACT_APP_API_URL}/mfa/setup`,
       });
       return response.data;
    } catch (err: any) {

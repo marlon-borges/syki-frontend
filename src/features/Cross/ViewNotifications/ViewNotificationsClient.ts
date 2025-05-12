@@ -1,5 +1,5 @@
+import { api } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 export interface ViewNotificationsProps {
    token: string;
@@ -7,12 +7,10 @@ export interface ViewNotificationsProps {
 
 async function ViewNotificationsClient({ token }: ViewNotificationsProps) {
    try {
-      const response = await axios({
-         method: "PUT",
+      const response = await api.put("/notifications/user", null, {
          headers: {
             Authorization: `Bearer ${token}`,
          },
-         url: `${process.env.REACT_APP_API_URL}/notifications/user`,
       });
       return response.data;
    } catch (err: any) {
