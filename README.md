@@ -1,29 +1,18 @@
-# Rsbuild project
+# Syki Frontend project
+Criação de um frontend utilizando React, para o repositório [Syki de Zaqueu Cavalcante](https://github.com/ZaqueuCavalcante/syki).
 
 ## Setup
 
-Install the dependencies:
+Instale as dependências, utilizando npm:
 
 ```bash
-pnpm install
+npm install
 ```
 
-## Get started
+## Iniciar
 
-Start the dev server:
-
-```bash
-pnpm dev
-```
-
-Build the app for production:
+Inicie o servidor em dev:
 
 ```bash
-pnpm build
-```
-
-Preview the production build locally:
-
-```bash
-pnpm preview
+npm dev
 ```
