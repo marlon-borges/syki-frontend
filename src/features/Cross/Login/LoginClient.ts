@@ -1,5 +1,5 @@
 import { api } from "@/services/api";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 interface LoginProps {
    email: string;
@@ -22,9 +22,9 @@ async function LoginClient({ email, password }: LoginProps) {
    }
 }
 
-export function useLoginQuery(email: string, password: string) {
-   return useQuery<LoginResponse, Error>({
-      queryKey: ["login"],
-      queryFn: () => LoginClient({ email, password }),
+export function useLoginMutation(email: string, password: string) {
+   return useMutation<LoginResponse, Error>({
+      mutationKey: ["login"],
+      mutationFn: () => LoginClient({ email, password }),
    });
 }

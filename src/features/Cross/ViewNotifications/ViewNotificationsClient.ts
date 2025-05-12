@@ -1,5 +1,5 @@
 import { api } from "@/services/api";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 export interface ViewNotificationsProps {
    token: string;
@@ -21,9 +21,9 @@ async function ViewNotificationsClient({ token }: ViewNotificationsProps) {
    }
 }
 
-export function useViewNotifications(token: string) {
-   return useQuery({
-      queryKey: ["view-notifications"],
-      queryFn: () => ViewNotificationsClient({ token }),
+export function useViewNotificationsMutation(token: string) {
+   return useMutation({
+      mutationKey: ["view-notifications"],
+      mutationFn: () => ViewNotificationsClient({ token }),
    });
 }

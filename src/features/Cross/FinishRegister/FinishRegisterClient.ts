@@ -1,5 +1,5 @@
 import { api } from "@/services/api";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 export interface FinishRegisterProps {
    token: string;
@@ -18,9 +18,9 @@ async function FinishRegisterClient({ token, password }: FinishRegisterProps) {
    }
 }
 
-export function useFinishRegisterQuery(token: string, password: string) {
-   return useQuery({
-      queryKey: ["finish-register"],
-      queryFn: () => FinishRegisterClient({ token, password }),
+export function useFinishRegisterMutation(token: string, password: string) {
+   return useMutation({
+      mutationKey: ["finish-register"],
+      mutationFn: () => FinishRegisterClient({ token, password }),
    });
 }

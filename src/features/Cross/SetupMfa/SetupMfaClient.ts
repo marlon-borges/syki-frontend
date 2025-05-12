@@ -1,5 +1,5 @@
 import { api } from "@/services/api";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 export interface SetupMfaProps {
    token: string;
@@ -18,9 +18,9 @@ async function SetupMfaClient({ token }: SetupMfaProps) {
    }
 }
 
-export function useSetupMfa(token: string) {
-   return useQuery({
-      queryKey: ["setup-mfa"],
-      queryFn: () => SetupMfaClient({ token }),
+export function useSetupMfaMutation(token: string) {
+   return useMutation({
+      mutationKey: ["setup-mfa"],
+      mutationFn: () => SetupMfaClient({ token }),
    });
 }

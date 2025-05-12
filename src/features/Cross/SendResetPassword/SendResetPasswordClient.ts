@@ -1,5 +1,5 @@
 import { api } from "@/services/api";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 export interface SendResetPasswordProps {
    email: string;
@@ -16,9 +16,9 @@ async function SendResetPasswordClient({ email }: SendResetPasswordProps) {
    }
 }
 
-export function useSendResetPassword(email: string) {
-   return useQuery({
-      queryKey: ["send-reset-password"],
-      queryFn: () => SendResetPasswordClient({ email }),
+export function useSendResetPasswordMutation(email: string) {
+   return useMutation({
+      mutationKey: ["send-reset-password"],
+      mutationFn: () => SendResetPasswordClient({ email }),
    });
 }

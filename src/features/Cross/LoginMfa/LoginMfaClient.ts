@@ -1,5 +1,5 @@
 import { api } from "@/services/api";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 export interface LoginMfaProps {
    code: string;
@@ -20,9 +20,9 @@ async function LoginMfaClient({ code }: LoginMfaProps) {
    }
 }
 
-export function useLoginMfaQuery(code: string) {
-   return useQuery<LoginMfaResponse, Error>({
-      queryKey: ["login-mfa"],
-      queryFn: () => LoginMfaClient({ code }),
+export function useLoginMfaMutation(code: string) {
+   return useMutation<LoginMfaResponse, Error>({
+      mutationKey: ["login-mfa"],
+      mutationFn: () => LoginMfaClient({ code }),
    });
 }

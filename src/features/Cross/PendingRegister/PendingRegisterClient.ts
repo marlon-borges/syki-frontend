@@ -1,5 +1,5 @@
 import { api } from "@/services/api";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 export interface PendingRegisterProps {
    email: string;
@@ -14,9 +14,9 @@ async function PendingRegisterClient({ email }: PendingRegisterProps) {
    }
 }
 
-export function usePendingRegisterQuery(email: string) {
-   return useQuery({
-      queryKey: ["pending-register"],
-      queryFn: () => PendingRegisterClient({ email }),
+export function usePendingRegisterMutation(email: string) {
+   return useMutation({
+      mutationKey: ["pending-register"],
+      mutationFn: () => PendingRegisterClient({ email }),
    });
 }
