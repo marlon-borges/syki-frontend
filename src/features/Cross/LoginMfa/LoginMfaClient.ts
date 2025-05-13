@@ -1,28 +1,39 @@
 import { api } from "@/services/api";
+import { BadRequest } from "@/types/BadRequest";
 import { useMutation } from "@tanstack/react-query";
 
 export interface LoginMfaProps {
-   code: string;
-}
-
-export interface LoginMfaResponse {
    token: string;
 }
 
-async function LoginMfaClient({ code }: LoginMfaProps) {
+export interface LoginMfaResponse {
+   accessToken: string | null;
+}
+
+export interface LoginMfaErrorResponse extends BadRequest {}
+
+async function LoginMfaClient({ token }: LoginMfaProps) {
    try {
       const response = await api.post("/login/mfa", {
-         token: code,
+         token,
       });
       return response.data;
    } catch (err: any) {
-      throw new Error("Erro ao realizar o login MFA: " + err.message);
+      if (err.response?.data) {
+         const apiError: LoginMfaErrorResponse = err.response.data;
+         throw apiError;
+      }
+      throw {
+         code: "LoginRequestTwoFactor",
+         message:
+            "Utilize o segundo fator de autenticação para realizar login.",
+      } satisfies LoginMfaErrorResponse;
    }
 }
 
-export function useLoginMfaMutation(code: string) {
-   return useMutation<LoginMfaResponse, Error>({
+export function useLoginMfaMutation() {
+   return useMutation<LoginMfaResponse, LoginMfaErrorResponse, LoginMfaProps>({
       mutationKey: ["login-mfa"],
-      mutationFn: () => LoginMfaClient({ code }),
+      mutationFn: LoginMfaClient,
    });
 }

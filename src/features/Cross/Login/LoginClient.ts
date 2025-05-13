@@ -1,14 +1,17 @@
 import { api } from "@/services/api";
+import { BadRequest } from "@/types/BadRequest";
 import { useMutation } from "@tanstack/react-query";
 
-interface LoginProps {
+export interface LoginProps {
    email: string;
    password: string;
 }
 
-interface LoginResponse {
-   token: string;
+export interface LoginResponse {
+   accessToken: string;
 }
+
+export interface LoginErrorResponse extends BadRequest {}
 
 async function LoginClient({ email, password }: LoginProps) {
    try {
@@ -18,13 +21,20 @@ async function LoginClient({ email, password }: LoginProps) {
       });
       return response.data;
    } catch (err: any) {
-      throw new Error("Erro ao realizar o login: " + err.message);
+      if (err.response?.data) {
+         const apiError: LoginErrorResponse = err.response.data;
+         throw apiError;
+      }
+      throw {
+         code: "UserNotFound",
+         message: "Usuário não encontrado.",
+      } satisfies LoginErrorResponse;
    }
 }
 
-export function useLoginMutation(email: string, password: string) {
-   return useMutation<LoginResponse, Error>({
+export function useLoginMutation() {
+   return useMutation<LoginResponse, LoginErrorResponse, LoginProps>({
       mutationKey: ["login"],
-      mutationFn: () => LoginClient({ email, password }),
+      mutationFn: LoginClient,
    });
 }

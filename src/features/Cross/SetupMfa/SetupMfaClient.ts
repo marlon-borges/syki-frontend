@@ -1,26 +1,40 @@
 import { api } from "@/services/api";
+import { BadRequest } from "@/types/BadRequest";
 import { useMutation } from "@tanstack/react-query";
 
 export interface SetupMfaProps {
-   token: string;
+   token: string | null;
 }
+
+export interface SetupMfaErrorResponse extends BadRequest {}
 
 async function SetupMfaClient({ token }: SetupMfaProps) {
    try {
-      const response = await api.post("/mfa/setup", null, {
-         headers: {
-            Authorization: `Bearer ${token}`,
+      const response = await api.post(
+         "/mfa/setup",
+         {},
+         {
+            headers: {
+               Authorization: `Bearer ${token}`,
+            },
          },
-      });
+      );
       return response.data;
    } catch (err: any) {
-      throw new Error("Erro ao criar o setup MFA: " + err.message);
+      if (err.response?.data) {
+         const apiError: SetupMfaErrorResponse = err.response.data;
+         throw apiError;
+      }
+      throw {
+         code: "InvalidMfaToken",
+         message: "MFA token inválido.",
+      } satisfies SetupMfaErrorResponse;
    }
 }
 
-export function useSetupMfaMutation(token: string) {
-   return useMutation({
+export function useSetupMfaMutation() {
+   return useMutation<void, SetupMfaErrorResponse, SetupMfaProps>({
       mutationKey: ["setup-mfa"],
-      mutationFn: () => SetupMfaClient({ token }),
+      mutationFn: SetupMfaClient,
    });
 }

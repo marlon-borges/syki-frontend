@@ -1,9 +1,12 @@
 import { api } from "@/services/api";
+import { BadRequest } from "@/types/BadRequest";
 import { useMutation } from "@tanstack/react-query";
 
 export interface SendResetPasswordProps {
-   email: string;
+   email: string | null;
 }
+
+export interface SendResetPasswordErrorResponse extends BadRequest {}
 
 async function SendResetPasswordClient({ email }: SendResetPasswordProps) {
    try {
@@ -12,13 +15,23 @@ async function SendResetPasswordClient({ email }: SendResetPasswordProps) {
       });
       return response.data;
    } catch (err: any) {
-      throw new Error("Erro ao enviar a redefinição de senha: " + err.message);
+      if (err.response?.data) {
+         throw err.response.data as SendResetPasswordErrorResponse;
+      }
+      throw {
+         code: "UserNotFound",
+         message: "Usuário não encontrado.",
+      } satisfies SendResetPasswordErrorResponse;
    }
 }
 
-export function useSendResetPasswordMutation(email: string) {
-   return useMutation({
+export function useSendResetPasswordMutation() {
+   return useMutation<
+      void,
+      SendResetPasswordErrorResponse,
+      SendResetPasswordProps
+   >({
       mutationKey: ["send-reset-password"],
-      mutationFn: () => SendResetPasswordClient({ email }),
+      mutationFn: SendResetPasswordClient,
    });
 }

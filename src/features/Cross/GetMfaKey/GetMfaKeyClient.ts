@@ -5,6 +5,10 @@ export interface GetMfaKeyProps {
    token: string;
 }
 
+export interface GetMfaKeyResponse {
+   key: string;
+}
+
 async function GetMfaKeyClient({ token }: GetMfaKeyProps) {
    try {
       const response = await api.get("/mfa/key", {
@@ -19,8 +23,8 @@ async function GetMfaKeyClient({ token }: GetMfaKeyProps) {
 }
 
 export function useGetMfaKey(token: string) {
-   return useQuery({
-      queryKey: ["get-mfa-key"],
+   return useQuery<GetMfaKeyResponse, Error, GetMfaKeyProps>({
+      queryKey: ["get-mfa-key", token],
       queryFn: () => GetMfaKeyClient({ token }),
    });
 }

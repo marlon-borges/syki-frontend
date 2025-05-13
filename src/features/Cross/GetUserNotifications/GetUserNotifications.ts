@@ -5,6 +5,14 @@ export interface GetUserNotificationsProps {
    token: string;
 }
 
+export interface GetUserNotificationsResponse {
+   notificationId: string;
+   title: string | null;
+   description: string | null;
+   createdAt: string;
+   viewedAt: string | null;
+}
+
 async function GetUserNotificationsClient({
    token,
 }: GetUserNotificationsProps) {
@@ -23,8 +31,12 @@ async function GetUserNotificationsClient({
 }
 
 export function useGetUserNotifications(token: string) {
-   return useQuery({
-      queryKey: ["get-user-notifications"],
+   return useQuery<
+      GetUserNotificationsResponse,
+      Error,
+      GetUserNotificationsProps
+   >({
+      queryKey: ["get-user-notifications", token],
       queryFn: () => GetUserNotificationsClient({ token }),
    });
 }
