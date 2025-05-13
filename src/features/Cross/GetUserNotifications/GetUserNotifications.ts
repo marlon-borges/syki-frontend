@@ -1,10 +1,6 @@
 import { api } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
 
-export interface GetUserNotificationsProps {
-   token: string;
-}
-
 export interface GetUserNotificationsResponse {
    notificationId: string;
    title: string | null;
@@ -13,15 +9,9 @@ export interface GetUserNotificationsResponse {
    viewedAt: string | null;
 }
 
-async function GetUserNotificationsClient({
-   token,
-}: GetUserNotificationsProps) {
+async function GetUserNotificationsClient() {
    try {
-      const response = await api.get("/notifications/user", {
-         headers: {
-            Authorization: `Bearer ${token}`,
-         },
-      });
+      const response = await api.get("/notifications/user");
       return response.data;
    } catch (err: any) {
       throw new Error(
@@ -30,13 +20,9 @@ async function GetUserNotificationsClient({
    }
 }
 
-export function useGetUserNotifications(token: string) {
-   return useQuery<
-      GetUserNotificationsResponse,
-      Error,
-      GetUserNotificationsProps
-   >({
-      queryKey: ["get-user-notifications", token],
-      queryFn: () => GetUserNotificationsClient({ token }),
+export function useGetUserNotifications() {
+   return useQuery<GetUserNotificationsResponse, Error, {}>({
+      queryKey: ["get-user-notifications"],
+      queryFn: () => GetUserNotificationsClient(),
    });
 }

@@ -8,6 +8,7 @@ export interface AuthContextProps {
    isLoading: boolean;
    login: (token: string) => void;
    logout: () => void;
+   token: string;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -75,9 +76,12 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
    const login = (token: string) => {
       try {
          const decodedJWT = jwtDecode(token) as UserProps;
-         setCookie("AccessToken", token, {
-            httpOnly: true,
-         });
+         setCookie(
+            "AccessToken",
+            token,
+            // {httpOnly: true}
+            // {secure: true}
+         );
          setUser({
             email: decodedJWT?.email,
             name: decodedJWT?.name,
@@ -94,7 +98,9 @@ export function AuthProvider({ children }: AuthContextProviderProps) {
    };
 
    return (
-      <AuthContext.Provider value={{ user, isLoading, login, logout }}>
+      <AuthContext.Provider
+         value={{ user, isLoading, login, logout, token: cookies.AccessToken }}
+      >
          {children}
       </AuthContext.Provider>
    );

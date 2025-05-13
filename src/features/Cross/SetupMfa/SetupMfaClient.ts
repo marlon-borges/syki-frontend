@@ -2,23 +2,11 @@ import { api } from "@/services/api";
 import { BadRequest } from "@/types/BadRequest";
 import { useMutation } from "@tanstack/react-query";
 
-export interface SetupMfaProps {
-   token: string | null;
-}
-
 export interface SetupMfaErrorResponse extends BadRequest {}
 
-async function SetupMfaClient({ token }: SetupMfaProps) {
+async function SetupMfaClient() {
    try {
-      const response = await api.post(
-         "/mfa/setup",
-         {},
-         {
-            headers: {
-               Authorization: `Bearer ${token}`,
-            },
-         },
-      );
+      const response = await api.post("/mfa/setup");
       return response.data;
    } catch (err: any) {
       if (err.response?.data) {
@@ -33,7 +21,7 @@ async function SetupMfaClient({ token }: SetupMfaProps) {
 }
 
 export function useSetupMfaMutation() {
-   return useMutation<void, SetupMfaErrorResponse, SetupMfaProps>({
+   return useMutation<void, SetupMfaErrorResponse, {}>({
       mutationKey: ["setup-mfa"],
       mutationFn: SetupMfaClient,
    });

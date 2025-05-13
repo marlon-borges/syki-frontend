@@ -2,23 +2,11 @@ import { api } from "@/services/api";
 import { BadRequest } from "@/types/BadRequest";
 import { useMutation } from "@tanstack/react-query";
 
-export interface ViewNotificationsProps {
-   token: string | null;
-}
-
 export interface ViewNotificationsErrorResponse extends BadRequest {}
 
-async function ViewNotificationsClient({ token }: ViewNotificationsProps) {
+async function ViewNotificationsClient() {
    try {
-      const response = await api.put(
-         "/notifications/user",
-         {},
-         {
-            headers: {
-               Authorization: `Bearer ${token}`,
-            },
-         },
-      );
+      const response = await api.put("/notifications/user");
       return response.data;
    } catch (err: any) {
       if (err.response?.data) {
@@ -33,11 +21,7 @@ async function ViewNotificationsClient({ token }: ViewNotificationsProps) {
 }
 
 export function useViewNotificationsMutation() {
-   return useMutation<
-      void,
-      ViewNotificationsErrorResponse,
-      ViewNotificationsProps
-   >({
+   return useMutation<void, ViewNotificationsErrorResponse, {}>({
       mutationKey: ["view-notifications"],
       mutationFn: ViewNotificationsClient,
    });
