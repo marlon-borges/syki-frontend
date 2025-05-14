@@ -1,5 +1,5 @@
 import { api } from "@/services/api";
-import { BadRequest } from "@/types/BadRequest";
+import { BadRequest } from "@/types/BadRequestType";
 import { useMutation } from "@tanstack/react-query";
 
 export interface LoginProps {
