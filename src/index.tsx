@@ -12,6 +12,7 @@ import { ProtectedLayout } from "@/components/ProtectedLayout";
 import { CookiesProvider } from "react-cookie";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "@/context/Auth/useAuth";
+import { AxiosAuthInterceptor } from "@/components/Auth/AxiosAuthInterceptor";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ if (rootEl) {
             <QueryClientProvider client={queryClient}>
                <BrowserRouter>
                   <AuthProvider>
+                     <AxiosAuthInterceptor />
                      <Routes>
                         /* Public */
                         <Route path="/login" element={<LoginPage />} />
