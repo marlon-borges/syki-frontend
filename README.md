@@ -1,7 +1,14 @@
-# Syki Frontend project
-Criação de um frontend utilizando React, para o repositório [Syki de Zaqueu Cavalcante](https://github.com/ZaqueuCavalcante/syki).
+# SYKI - Sistema de Gerenciamento Acadêmico
 
-## Setup
+Criado por: [Zaqueu Cavalcante](https://github.com/ZaqueuCavalcante/syki)
+
+Syki é um sistema open-source para gerenciamento educacional, que pode ser usado por gestores, professores e alunos.
+
+Esse é um Frontend, em React, que consome as mesmas APIs.
+
+---
+
+### Setup
 
 Instale as dependências, utilizando npm:
 
@@ -9,10 +16,8 @@ Instale as dependências, utilizando npm:
 npm install
 ```
 
-## Iniciar
-
-Inicie o servidor em dev:
+### Iniciar em dev
 
 ```bash
-npm dev
+npm run dev
 ```
