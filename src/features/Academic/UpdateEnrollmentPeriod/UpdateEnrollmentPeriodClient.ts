@@ -2,8 +2,8 @@ import { api } from "@/services/api";
 import { useMutation } from "@tanstack/react-query";
 
 export interface UpdateEnrollmentPeriodProps {
-   startAt?: string;
-   endAt?: string;
+   startAt: string;
+   endAt: string;
 }
 
 async function UpdateEnrollmentPeriodClient({
@@ -27,6 +27,6 @@ async function UpdateEnrollmentPeriodClient({
 export function useUpdateEnrollmentPeriodMutation(id: string) {
    return useMutation<void, Error, UpdateEnrollmentPeriodProps>({
       mutationKey: ["update-enrollment-period", id],
-      mutationFn: () => UpdateEnrollmentPeriodClient({ id }),
+      mutationFn: (body) => UpdateEnrollmentPeriodClient({ id, ...body }),
    });
 }
