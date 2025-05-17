@@ -22,9 +22,9 @@ export interface CreateStudentEnrollmentResponse {
 }
 
 interface SchedulesProps {
-   day: typeof ClassScheduleDaysType;
-   startAt: typeof ClassTimesType;
-   endAt: typeof ClassTimesType;
+   day: ClassScheduleDaysType;
+   startAt: ClassTimesType;
+   endAt: ClassTimesType;
 }
 
 interface CreateStudentEnrollmentErrorResponse extends BadRequest {}

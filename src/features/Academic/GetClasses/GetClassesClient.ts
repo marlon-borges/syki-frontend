@@ -1,15 +1,14 @@
 import { api } from "@/services/api";
-// import { ClassStatusType } from "@/types/ClassStatusType";
 import { useQuery } from "@tanstack/react-query";
 
-// export interface GetClassesProps {
-//    status: typeof ClassStatusType;
-//    allLessonsFinished: boolean;
-// }
+export interface GetClassesProps {
+   status?: ClassStatusType;
+   allLessonsFinished?: boolean;
+}
 
-async function GetClassesClient() {
+async function GetClassesClient(params: GetClassesProps) {
    try {
-      const response = await api.get("/academic/classes");
+      const response = await api.get("/academic/classes", { params });
       return response.data;
    } catch (err: any) {
       throw new Error(
@@ -18,9 +17,9 @@ async function GetClassesClient() {
    }
 }
 
-export function useGetClasses() {
+export function useGetClasses(params: GetClassesProps) {
    return useQuery<void, Error, {}>({
-      queryKey: ["get-classes"],
-      queryFn: () => GetClassesClient(),
+      queryKey: ["get-classes", params],
+      queryFn: () => GetClassesClient(params),
    });
 }

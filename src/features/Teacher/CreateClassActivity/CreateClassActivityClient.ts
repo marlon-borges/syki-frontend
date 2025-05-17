@@ -10,7 +10,7 @@ export interface CreateClassActivityProps {
    type: "Exam" | "Project" | "Work" | "Prsentation";
    weight: number;
    dueDate: string;
-   dueHour: typeof ClassTimesType;
+   dueHour: ClassTimesType;
 }
 
 interface CreateClassActivityErrorResponse extends BadRequest {}

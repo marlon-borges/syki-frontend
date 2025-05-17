@@ -1,7 +1,6 @@
-export const ClassStatusType = [
-   "OnPreEnrollment",
-   "OnEnrollment",
-   "AwaitingStart",
-   "Started",
-   "Finalized",
-];
+type ClassStatusType =
+   | "OnPreEnrollment"
+   | "OnEnrollment"
+   | "AwaitingStart"
+   | "Started"
+   | "Finalized";

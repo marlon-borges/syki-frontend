@@ -1,23 +1,22 @@
 import { api } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
 
-// Informado na documentação da API, mas não usado
-// export interface GetDisciplinesProps {
-//    courseId?: string;
-// }
+export interface GetDisciplinesProps {
+   courseId?: string;
+}
 
-async function GetDisciplinesClient() {
+async function GetDisciplinesClient(params: GetDisciplinesProps) {
    try {
-      const response = await api.get("/academic/disciplines");
+      const response = await api.get("/academic/disciplines", { params });
       return response.data;
    } catch (err: any) {
       throw new Error("Erro ao buscar as disciplinas: " + err.message);
    }
 }
 
-export function useGetDisciplines() {
+export function useGetDisciplines(params: GetDisciplinesProps) {
    return useQuery<void, Error, {}>({
-      queryKey: ["get-disciplines"],
-      queryFn: () => GetDisciplinesClient(),
+      queryKey: ["get-disciplines", params],
+      queryFn: () => GetDisciplinesClient(params),
    });
 }

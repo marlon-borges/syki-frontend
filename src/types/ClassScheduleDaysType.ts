@@ -1,8 +1,7 @@
-export const ClassScheduleDaysType = [
-   "Monday",
-   "Tuesday",
-   "Wednesday",
-   "Thursday",
-   "Friday",
-   "Saturday",
-];
+export type ClassScheduleDaysType =
+   | "Monday"
+   | "Tuesday"
+   | "Wednesday"
+   | "Thursday"
+   | "Friday"
+   | "Saturday";

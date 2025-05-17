@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 export interface UpdateCampusProps {
    id: string;
    name: string | null;
-   state: typeof StatesType;
+   state: StatesType;
    city: string | null;
 }
 

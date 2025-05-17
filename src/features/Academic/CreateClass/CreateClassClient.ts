@@ -1,7 +1,6 @@
 import { api } from "@/services/api";
 import { BadRequest } from "@/types/BadRequestType";
 import { ClassScheduleDaysType } from "@/types/ClassScheduleDaysType";
-import { ClassStatusType } from "@/types/ClassStatusType";
 import { ClassTimesType } from "@/types/ClassTimesType";
 import { useMutation } from "@tanstack/react-query";
 
@@ -14,9 +13,9 @@ export interface CreateClassProps {
 }
 
 interface ScheduleProps {
-   day: typeof ClassScheduleDaysType;
-   start: typeof ClassTimesType;
-   end: typeof ClassTimesType;
+   day: ClassScheduleDaysType;
+   start: ClassTimesType;
+   end: ClassTimesType;
 }
 
 export interface CreateClassResponse {
@@ -26,7 +25,7 @@ export interface CreateClassResponse {
    period: string | null;
    vacancies: number;
    frequency: number;
-   status: typeof ClassStatusType;
+   status: ClassStatusType;
    schedules: ScheduleProps[];
    lessons: LessonProps[];
    fillRatio: string | null;

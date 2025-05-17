@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 
 export interface CreateCampusProps {
    name: string | null;
-   state: typeof StatesType;
+   state: StatesType;
    city: string | null;
 }
 
